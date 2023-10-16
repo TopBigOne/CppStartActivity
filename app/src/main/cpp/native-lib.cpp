@@ -3,16 +3,8 @@
 
 #include "utils/LogUtils.h"
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_jar_cpp_startactivity_MainActivity_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_jar_cpp_startactivity_MainActivity_enterTarget(JNIEnv *env, jobject mainObject) {
+
+void enterTarget(JNIEnv *env, jobject mainObject) {
     jclass mainClass = env->GetObjectClass(mainObject);
     jmethodID getPackageNameId = env->GetMethodID(mainClass, "getPackageName",
                                                   "()Ljava/lang/String;");
@@ -55,5 +47,24 @@ Java_com_jar_cpp_startactivity_MainActivity_enterTarget(JNIEnv *env, jobject mai
 
     env->CallVoidMethod(mainObject, startActivity, intentObject);
 
+}
+
+
+static JNINativeMethod methods[] = {
+        {"enterTarget", "()V", (void *) enterTarget},
+};
+
+
+jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env = NULL;
+    if (vm->GetEnv((void **) &env, JNI_VERSION_1_4) != JNI_OK) {
+        return JNI_ERR;
+    }
+    jclass mainClass = env->FindClass("com/jar/cpp/startactivity/MainActivity");
+    if (!mainClass) {
+        return JNI_ERR;
+    }
+    env->RegisterNatives(mainClass, methods, sizeof(methods) / sizeof(methods[0]));
+    return JNI_VERSION_1_4;
 
 }

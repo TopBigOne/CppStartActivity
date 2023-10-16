@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CppStartActivity</string>
+    <string name="second_activity">Second Activity</string>
+    <string name="test_start_activity">test start Activity</string>
+</resources>

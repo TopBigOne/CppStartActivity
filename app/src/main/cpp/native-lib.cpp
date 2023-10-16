@@ -4,6 +4,12 @@
 #include "utils/LogUtils.h"
 
 
+#define TEMP_ONE "哎，，有些上头，不能上头啊, 需要保持冷静."
+
+void printStatus() {
+    NATIVE_LOGCAT_D("%s", TEMP_ONE)
+}
+
 void enterTarget(JNIEnv *env, jobject mainObject) {
     jclass mainClass = env->GetObjectClass(mainObject);
     jmethodID getPackageNameId = env->GetMethodID(mainClass, "getPackageName",
@@ -49,9 +55,19 @@ void enterTarget(JNIEnv *env, jobject mainObject) {
 
 }
 
+void testOne(JNIEnv *env, jobject main, jstring p_one) {
+    const char *content = env->GetStringUTFChars(p_one, JNI_FALSE);
+    NATIVE_LOGCAT_D("testOne : %s", content)
+
+    printStatus();
+
+
+}
+
 
 static JNINativeMethod methods[] = {
-        {"enterTarget", "()V", (void *) enterTarget},
+        {"enterTarget", "()V",                   (void *) enterTarget},
+        {"testOne",     "(Ljava/lang/String;)V", (void *) testOne},
 };
 
 

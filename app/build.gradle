@@ -6,18 +6,32 @@ android {
     namespace 'com.jar.cpp.startactivity'
     compileSdk 34
 
+    ndkVersion = "21.3.6528147"
+
+
     defaultConfig {
         applicationId "com.jar.cpp.startactivity"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags '-std=c++11'
+                cppFlags "-std=c++14", "-frtti", "-fexceptions", "-DANDROID_TOOLCHAIN=clang", "-ffunction-sections", "-fdata-sections",
+                        "-mllvm", "-sub", "-mllvm", "-sub_loop=3",
+                        "-mllvm", "-fla"
+                // "-mllvm", "-split", "-mllvm", "-split_num=3",
+                // "-mllvm", "-bcf", "-mllvm", "-bcf_loop=3", "-mllvm", "-bcf_prob=40",
+                // "-mllvm", "-sobf", "-mllvm", "-aesSeed=0xada46ab5da824b96a18409c49dc91dc3"
             }
+
+            ndk {
+                //  abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+
+
         }
     }
 

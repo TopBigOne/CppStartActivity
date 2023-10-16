@@ -6,7 +6,6 @@ project("startactivity")
 
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
-
         native-lib.cpp
         utils/LogUtils.h
         )

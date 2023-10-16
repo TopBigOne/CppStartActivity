@@ -35,8 +35,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnAlone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                testOne("人生之无奈");
+            }
+        });
+
+
+
     }
 
 
     public native void enterTarget();
+    public native void testOne(String temp);
 }
